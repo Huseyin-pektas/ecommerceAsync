@@ -8,7 +8,7 @@ const ProductCart = ({ data }) => {
     //console.log(data, "data da ne var");
     return (
         //burada productInfo ya bir ıd gönderiyoruz.
-        <TouchableOpacity onPress={() => navigation.navigate("ProductInfo", { productId: data.id })}
+        <TouchableOpacity onPress={() => navigation.navigate("ProductInfo", { productID: data.id })}
             style={{
                 width: "48%",
                 marginVertical: 14,

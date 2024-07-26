@@ -1,4 +1,4 @@
-import { Animated, Dimensions, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Animated, Dimensions, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Items } from '../database/Database'
@@ -18,19 +18,27 @@ const ProductInfoScreen = () => {
     const route = useRoute();
     const [product, setProduct] = useState([])
 
-    const { productId } = route.params;
+    const { productID } = route.params;
 
-    //console.log(productId, "productIdDDDD");
+    //console.log(productID, "productIDDDDD");
+    const clearAsyncStorage = async () => {
+        try {
+            await AsyncStorage.clear()
+        } catch (error) {
+
+        }
+    }
 
     useEffect(() => {
         getDataFromDB()
+        //clearAsyncStorage()
     }, [])
 
 
     const getDataFromDB = () => {
 
 
-        const ürün = Items.find(item => item.id === productId);
+        const ürün = Items.find(item => item.id === productID);
         //console.log(ürün, "ürün de ne var");
         if (ürün) {
             setProduct(ürün);
@@ -52,6 +60,7 @@ const ProductInfoScreen = () => {
 
             try {
                 await AsyncStorage.setItem('cartItems', JSON.stringify(array));
+
                 navigation.navigate('Home');
             } catch (error) {
                 return error;
